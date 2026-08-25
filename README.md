@@ -17,8 +17,8 @@ bring it back.
 | Action | Result |
 |---|---|
 | `SUPER + M` | Minimise the focused window |
-| `SUPER + M` again | Restore it — Hyprland leaves focus on a window it just stashed, so a second press is an undo |
-| `SUPER + M` with nothing focused | Restore the most recently minimised window to the current workspace |
+| `SUPER + ALT + M` | Restore the most recently minimised window to the current workspace |
+| `SUPER + M` with nothing focused | Restore, same as above — a convenience for when you have just cleared the workspace |
 | Left-click an icon | Restore to the *current* workspace and focus it |
 | Middle-click an icon | Close that window |
 | Hover an icon | Slide its title out |
@@ -52,11 +52,16 @@ ln -s ~/.config/omarchy/plugins/brightwalker25.minimize/bin/minimize-toggle ~/.l
 **2. Add the keybinding** to `~/.config/hypr/bindings.lua`:
 
 ```lua
-o.bind("SUPER + M", "Minimize / restore window", "minimize-toggle")
+o.bind("SUPER + M", "Minimize window", "minimize-toggle")
+o.bind("SUPER + ALT + M", "Restore minimized window", "minimize-toggle restore")
 ```
 
-`SUPER + M` is unbound in stock Omarchy (`SUPER + SHIFT + M` is Music), so nothing is
-displaced. Hyprland picks the binding up on save.
+Both are unbound in stock Omarchy (`SUPER + SHIFT + M` is Music), so nothing is
+displaced. Hyprland picks the bindings up on save.
+
+The second binding is worth having: `SUPER + M` only falls back to restoring when
+there is nothing focused to minimise, so on a workspace with other windows still
+open it will keep stashing them instead of undoing the last stash.
 
 ## Settings
 
