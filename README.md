@@ -83,6 +83,18 @@ Set these on the widget's entry in `~/.config/omarchy/shell.json`:
 - Hover is driven by a `HoverHandler`, matching how Omarchy's own tray widget reveals
   its drawer.
 
+## Credits
+
+The idea came from [gardnmi/omarchy-minimize](https://github.com/gardnmi/omarchy-minimize)
+by Mike Gardner, MIT licensed. That plugin is what showed me minimising to the Omarchy
+bar was possible at all, and I ran it — latterly with a local patch that stripped its
+chips back to bare icons — before writing this one.
+
+This is an independent implementation rather than a fork. The two share no code beyond
+unavoidable Quickshell boilerplate, they stash to different workspaces, and gardnmi's
+live hover previews and interactive Peek have no equivalent here. If you want those,
+use theirs; it does considerably more than this does.
+
 ## Licence
 
 MIT
