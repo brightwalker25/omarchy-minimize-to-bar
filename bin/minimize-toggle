@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# SUPER + M handler for the blackbird.minimize bar widget.
+#
+# Minimizes the focused window to the bar shelf. When there is nothing focused
+# to minimize -- the current workspace is clear -- it does the reverse instead
+# and pops the most recently minimized window back onto this workspace.
+#
+# "Most recent" comes from focusHistoryID rather than a state file we would have
+# to keep in sync: minimizing a window leaves it at the front of the focus
+# history, so the lowest id among the stashed windows is the last one stashed.
+set -euo pipefail
+
+STASH="special:minimized"
+
+dispatch() { hyprctl dispatch "$1" >/dev/null; }
+
+active=$(hyprctl -j activewindow)
+focused=$(jq -r '.address // ""' <<<"$active")
+workspace=$(jq -r '.workspace.name // ""' <<<"$active")
+[[ $focused == "null" ]] && focused=""
+
+# Guard on the workspace too: with the stash toggled visible the focused window
+# is already minimized, and minimizing it again would be a no-op that silently
+# eats the keypress instead of restoring.
+if [[ -n $focused && $workspace != "$STASH" ]]; then
+  dispatch "hl.dsp.window.move({ window = \"address:$focused\", workspace = \"$STASH\", follow = false })"
+  exit 0
+fi
+
+last=$(hyprctl -j clients | jq -r --arg ws "$STASH" '
+  [ .[] | select(.workspace.name == $ws) ] | min_by(.focusHistoryID) | .address // ""')
+
+[[ -n $last && $last != "null" ]] || exit 0
+
+# "+0" is the current workspace, so it comes back where the user is now.
+dispatch "hl.dsp.window.move({ window = \"address:$last\", workspace = \"+0\" })"
+dispatch "hl.dsp.focus({ window = \"address:$last\" })"
