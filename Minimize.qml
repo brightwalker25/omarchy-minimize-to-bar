@@ -16,7 +16,7 @@ import qs.Ui
 // and focuses it, middle-click closes it.
 BarWidget {
   id: root
-  moduleName: "blackbird.minimize"
+  moduleName: "brightwalker25.minimize"
 
   readonly property string stash: "special:minimized"
   readonly property int maxLabelWidth: Number(setting("maxLabelWidth", 180))
@@ -104,7 +104,7 @@ BarWidget {
   }
 
   IpcHandler {
-    target: "blackbird.minimize"
+    target: "brightwalker25.minimize"
 
     function reload(): void {
       root.broadcast("reload")

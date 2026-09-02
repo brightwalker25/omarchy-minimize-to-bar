@@ -37,7 +37,7 @@ state file to fall out of sync.
 
 ```bash
 omarchy plugin add https://github.com/brightwalker25/omarchy-minimize-to-bar.git
-omarchy plugin enable blackbird.minimize --section left
+omarchy plugin enable brightwalker25.minimize --section left
 ```
 
 The installer only clones files — it never runs plugin code or hooks — so the two
@@ -46,7 +46,7 @@ things that live outside the plugin directory are yours to add.
 **1. Put the keybinding script on `PATH`:**
 
 ```bash
-ln -s ~/.config/omarchy/plugins/blackbird.minimize/bin/minimize-toggle ~/.local/bin/minimize-toggle
+ln -s ~/.config/omarchy/plugins/brightwalker25.minimize/bin/minimize-toggle ~/.local/bin/minimize-toggle
 ```
 
 **2. Add the keybinding** to `~/.config/hypr/bindings.lua`:
@@ -68,7 +68,7 @@ open it will keep stashing them instead of undoing the last stash.
 Set these on the widget's entry in `~/.config/omarchy/shell.json`:
 
 ```json
-{ "id": "blackbird.minimize", "maxLabelWidth": 180, "alwaysShowLabels": false }
+{ "id": "brightwalker25.minimize", "maxLabelWidth": 180, "alwaysShowLabels": false }
 ```
 
 | Key | Default | What it does |
