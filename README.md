@@ -9,8 +9,8 @@ icon alone**; hover one and its title slides out beside it.
 
 There is no "minimise" in Hyprland, so this is a move to a `special:minimized`
 workspace that nothing ever toggles visible. The window keeps running with its
-surface off screen — the compositor equivalent of a taskbar minimise — until you
-bring it back.
+surface off screen until you bring it back. That is the compositor equivalent of a
+taskbar minimise.
 
 ## Behaviour
 
@@ -18,7 +18,7 @@ bring it back.
 |---|---|
 | `SUPER + M` | Minimise the focused window |
 | `SUPER + ALT + M` | Restore the most recently minimised window to the current workspace |
-| `SUPER + M` with nothing focused | Restore, same as above — a convenience for when you have just cleared the workspace |
+| `SUPER + M` with nothing focused | Restore, same as above: a convenience for when you have just cleared the workspace |
 | Left-click an icon | Restore to the *current* workspace and focus it |
 | Middle-click an icon | Close that window |
 | Hover an icon | Slide its title out |
@@ -40,7 +40,7 @@ omarchy plugin add https://github.com/brightwalker25/omarchy-minimize-to-bar.git
 omarchy plugin enable brightwalker25.minimize --section left
 ```
 
-The installer only clones files — it never runs plugin code or hooks — so the two
+The installer only clones files, and never runs plugin code or hooks, so the two
 things that live outside the plugin directory are yours to add.
 
 **1. Put the keybinding script on `PATH`:**
@@ -81,8 +81,8 @@ Set these on the widget's entry in `~/.config/omarchy/shell.json`:
 
 - **Vertical bars** have no room to expand sideways, so there the widget stays
   icon-only and shows the title in the shared tooltip instead.
-- A chip that appears *underneath* a stationary pointer — which happens if your mouse
-  is resting over the bar when you press `SUPER + M` — arrives already "hovered". Such
+- A chip that appears *underneath* a stationary pointer, which happens if your mouse
+  is resting over the bar when you press `SUPER + M`, arrives already "hovered". Such
   a chip stays collapsed until the pointer leaves it once, so a new icon never shows
   its title unasked.
 - Hover is driven by a `HoverHandler`, matching how Omarchy's own tray widget reveals
@@ -92,8 +92,8 @@ Set these on the widget's entry in `~/.config/omarchy/shell.json`:
 
 The idea came from [gardnmi/omarchy-minimize](https://github.com/gardnmi/omarchy-minimize)
 by Mike Gardner, MIT licensed. That plugin is what showed me minimising to the Omarchy
-bar was possible at all, and I ran it — latterly with a local patch that stripped its
-chips back to bare icons — before writing this one.
+bar was possible at all, and I ran it, latterly with a local patch that stripped its
+chips back to bare icons, before writing this one.
 
 This is an independent implementation rather than a fork. The two share no code beyond
 unavoidable Quickshell boilerplate, they stash to different workspaces, and gardnmi's
