@@ -100,6 +100,11 @@ unavoidable Quickshell boilerplate, they stash to different workspaces, and gard
 live hover previews and interactive Peek have no equivalent here. If you want those,
 use theirs; it does considerably more than this does.
 
+## Written with AI help
+
+This was written with help from AI. I have checked the code, but if you would
+prefer not to use it because AI was involved, that is your choice.
+
 ## Licence
 
 MIT
