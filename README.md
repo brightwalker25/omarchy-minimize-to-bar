@@ -63,6 +63,20 @@ The second binding is worth having: `SUPER + M` only falls back to restoring whe
 there is nothing focused to minimise, so on a workspace with other windows still
 open it will keep stashing them instead of undoing the last stash.
 
+## Removing
+
+Take out the two things added by hand, then the plugin:
+
+```bash
+rm ~/.local/bin/minimize-toggle
+omarchy plugin remove brightwalker25.minimize
+```
+
+and delete the two `minimize-toggle` lines from `~/.config/hypr/bindings.lua`.
+Any window still minimised when the plugin goes is left on its hidden special
+workspace, so bring each one back first: `minimize-toggle restore` returns the
+most recent, so run it once per window.
+
 ## Settings
 
 Set these on the widget's entry in `~/.config/omarchy/shell.json`:
