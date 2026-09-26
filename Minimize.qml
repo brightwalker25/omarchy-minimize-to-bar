@@ -9,7 +9,8 @@ import qs.Ui
 //
 // "Minimizing" is a move to Hyprland's `special:minimized` workspace. Nothing
 // ever toggles that workspace visible, so a stashed window keeps running with
-// its surface off screen -- the compositor equivalent of a taskbar minimize.
+// its surface off screen. This is the compositor equivalent of a taskbar
+// minimize.
 //
 // Each stashed window shows as its app icon alone; hovering one slides its
 // title out beside the icon. Left-click restores it to the current workspace
@@ -127,9 +128,9 @@ BarWidget {
 
     // Vertical bars are 28px wide with no room to grow sideways, so they stay
     // icon-only and lean on the shared tooltip instead.
-    // A chip that appears underneath a stationary pointer -- exactly what
-    // happens when SUPER + M adds one while the mouse is resting over the bar
-    // -- arrives already "hovered" and would expand without the user ever
+    // A chip that appears underneath a stationary pointer (exactly what
+    // happens when SUPER + M adds one while the mouse is resting over the bar)
+    // arrives already "hovered" and would expand without the user ever
     // moving onto it. Such a chip stays collapsed until the pointer leaves it
     // once; one created clear of the pointer is armed immediately and behaves
     // normally. (The shell ships PointerMoveGate for this same class of bug.)

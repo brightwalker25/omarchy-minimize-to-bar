@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Keybinding handler for the brightwalker25.minimize bar widget.
 #
-#   minimize-toggle            SUPER + M -- minimize the focused window
-#   minimize-toggle restore    SUPER + ALT + M -- pop the last one back
+#   minimize-toggle            SUPER + M: minimize the focused window
+#   minimize-toggle restore    SUPER + ALT + M: pop the last one back
 #
 # The bare form only restores when there is nothing focused to minimize, which
 # means a workspace with other windows still open will keep stashing them rather
