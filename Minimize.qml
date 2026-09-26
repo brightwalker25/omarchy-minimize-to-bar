@@ -139,6 +139,8 @@ BarWidget {
     readonly property bool expanded: !root.vertical
       && (root.alwaysShowLabels || (hover.hovered && item.armed))
     readonly property real labelWidth: Math.min(root.maxLabelWidth, label.implicitWidth)
+    // The shell only shows a tooltip while its target reports tooltipHovered.
+    readonly property bool tooltipHovered: hover.hovered
 
     implicitHeight: root.barSize
     implicitWidth: root.vertical
