@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "brightwalker25.minimize",
   "name": "Minimized windows",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "brightwalker25",
   "description": "Shelf of minimized windows; icon only until hovered",
   "kinds": [

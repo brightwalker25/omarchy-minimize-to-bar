@@ -53,8 +53,11 @@ BarWidget {
 
   // The window class is only a good icon name by coincidence; prefer the icon
   // the matching desktop entry declares and keep the class as the fallback.
+  // The class is chosen by the application, so it is only used as a themed
+  // icon name when it looks like one: a class such as "file:///..." or
+  // "image://..." would otherwise be loaded as an image source verbatim.
   function iconFor(appId) {
-    var name = appId
+    var name = /^[A-Za-z0-9._+-]+$/.test(appId) ? appId : ""
     try {
       var entry = DesktopEntries.byId(appId)
       if (entry && entry.icon) name = entry.icon
@@ -68,16 +71,22 @@ BarWidget {
     return "hyprctl dispatch " + Util.shellQuote(lua)
   }
 
+  // Addresses are spliced into a Lua string literal, so refuse anything that
+  // is not a plain hex address rather than trust whatever the IPC handed us.
+  function validAddress(address) {
+    return /^0x[0-9a-fA-F]+$/.test(String(address || ""))
+  }
+
   // "+0" is the current workspace, so a window comes back where the user is
   // now rather than wherever it happened to be stashed from.
   function restore(address) {
-    if (!root.bar) return
+    if (!root.bar || !root.validAddress(address)) return
     root.bar.run(root.dispatch('hl.dsp.window.move({ window = "address:' + address + '", workspace = "+0" })')
       + " && " + root.dispatch('hl.dsp.focus({ window = "address:' + address + '" })'))
   }
 
   function closeWindow(address) {
-    if (!root.bar) return
+    if (!root.bar || !root.validAddress(address)) return
     root.bar.run(root.dispatch('hl.dsp.window.close({ window = "address:' + address + '" })'))
   }
 
@@ -169,6 +178,9 @@ BarWidget {
         width: item.expanded ? item.labelWidth : 0
         clip: true
         visible: width > 0
+        // Window titles are set by applications and web pages; never let Qt
+        // treat one as rich text.
+        textFormat: Text.PlainText
         text: item.modelData.title
         color: root.bar ? root.bar.barForeground : Color.bar.text
         font.family: root.bar ? root.bar.fontFamily : Style.font.family

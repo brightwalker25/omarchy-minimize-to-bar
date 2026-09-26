@@ -17,12 +17,16 @@ STASH="special:minimized"
 
 dispatch() { hyprctl dispatch "$1" >/dev/null; }
 
+# Addresses are spliced into a Lua string literal; accept only plain hex.
+valid_address() { [[ $1 =~ ^0x[0-9a-fA-F]+$ ]]; }
+
 restore() {
   local last
   last=$(hyprctl -j clients | jq -r --arg ws "$STASH" '
     [ .[] | select(.workspace.name == $ws) ] | min_by(.focusHistoryID) | .address // ""')
 
   [[ -n $last && $last != "null" ]] || return 0
+  valid_address "$last" || return 0
 
   # "+0" is the current workspace, so it comes back where the user is now.
   dispatch "hl.dsp.window.move({ window = \"address:$last\", workspace = \"+0\" })"
@@ -49,7 +53,7 @@ workspace=$(jq -r '.workspace.name // ""' <<<"$active")
 # Guard on the workspace too: with the stash toggled visible the focused window
 # is already minimized, and minimizing it again would be a no-op that silently
 # eats the keypress instead of restoring.
-if [[ -n $focused && $workspace != "$STASH" ]]; then
+if [[ -n $focused && $workspace != "$STASH" ]] && valid_address "$focused"; then
   dispatch "hl.dsp.window.move({ window = \"address:$focused\", workspace = \"$STASH\", follow = false })"
   exit 0
 fi
